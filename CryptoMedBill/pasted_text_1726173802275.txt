@@ -1,0 +1,498 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/SLlMNp7pByU
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+import { CalendarDaysIcon, Calendar } from "@/components/ui/calendar"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
+import { Progress } from "@/components/ui/progress"
+
+export default function Component() {
+  return (
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+          <Card className="sm:col-span-2">
+            <CardHeader className="pb-3">
+              <CardTitle>Billing</CardTitle>
+              <CardDescription className="max-w-lg text-balance leading-relaxed">
+                Easily manage your medical billing and payments.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="patient-id">Patient ID</Label>
+                  <Input id="patient-id" placeholder="Enter patient ID" />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="date">Date</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="w-full justify-start font-normal">
+                        Pick a date
+                        <div className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar mode="single" />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="visit-type">Type of Visit or Service</Label>
+                  <Select>
+                    <SelectTrigger id="visit-type">
+                      <SelectValue placeholder="Select type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="labs">Labs</SelectItem>
+                      <SelectItem value="imaging">Imaging Study</SelectItem>
+                      <SelectItem value="infusion">Infusion</SelectItem>
+                      <SelectItem value="referral">Referral</SelectItem>
+                      <SelectItem value="virtual">Virtual</SelectItem>
+                      <SelectItem value="inperson">In-Person</SelectItem>
+                      <SelectItem value="consultation">Consultation</SelectItem>
+                      <SelectItem value="surgery">Surgery</SelectItem>
+                      <SelectItem value="therapy">Therapy</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="diagnosis">Diagnosis</Label>
+                  <Input id="diagnosis" placeholder="Enter diagnosis" />
+                  <div className="text-xs text-muted-foreground">
+                    ICD-10 code: <span id="icd10-code">A00.0</span>
+                  </div>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="amount">Amount</Label>
+                  <div className="flex items-center gap-2">
+                    <Input id="amount" type="number" placeholder="Enter amount" />
+                    <Select>
+                      <SelectTrigger id="payment-type">
+                        <SelectValue placeholder="Select payment type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="usd">USD</SelectItem>
+                        <SelectItem value="btc">BTC</SelectItem>
+                        <SelectItem value="eth">ETH</SelectItem>
+                        <SelectItem value="usdc">USDC</SelectItem>
+                        <SelectItem value="doge">Dogecoin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </form>
+            </CardContent>
+            <CardFooter>
+              <Button>Submit Bill</Button>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardDescription>This Week</CardDescription>
+              <CardTitle className="text-4xl">$12,329</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-xs text-muted-foreground">+25% from last week</div>
+            </CardContent>
+            <CardFooter>
+              <Progress value={25} aria-label="25% increase" />
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardDescription>This Month</CardDescription>
+              <CardTitle className="text-4xl">$45,329</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-xs text-muted-foreground">+10% from last month</div>
+            </CardContent>
+            <CardFooter>
+              <Progress value={12} aria-label="12% increase" />
+            </CardFooter>
+          </Card>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 44%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+
+// This is the root layout component for your Next.js app.
+// Learn more: https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required
+import { Inter } from 'next/font/google'
+import { cn } from '@/lib/utils'
+import './globals.css'
+
+const fontHeading = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-heading',
+})
+
+const fontBody = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+})
+
+export default function Layout({ children }) {
+  return (
+    <html lang="en">
+      <body 
+        className={cn(
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable
+        )}
+      >
+        {children}
+      </body>
+    </html>
+  )
+}
+
+import { fontFamily } from "tailwindcss/defaultTheme";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ['var(--font-heading)', ...fontFamily.sans],
+        body: ['var(--font-body)', ...fontFamily.sans]
+      },
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))'
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))'
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
+        },
+      },
+      borderRadius: {
+        xl: `calc(var(--radius) + 4px)`,
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: `calc(var(--radius) - 4px)`
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" }
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 }
+        }
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out"
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+};
+
+
+<!--
+// v0 by Vercel.
+// https://v0.dev/t/SLlMNp7pByU
+-->
+
+<style>:root{--background:0 0% 100%;--foreground:240 10% 3.9%;--card:0 0% 100%;--card-foreground:240 10% 3.9%;--popover:0 0% 100%;--popover-foreground:240 10% 3.9%;--primary:240 5.9% 10%;--primary-foreground:0 0% 98%;--secondary:240 4.8% 95.9%;--secondary-foreground:240 5.9% 10%;--muted:240 4.8% 95.9%;--muted-foreground:240 3.8% 45%;--accent:240 4.8% 95.9%;--accent-foreground:240 5.9% 10%;--destructive:0 72% 51%;--destructive-foreground:0 0% 98%;--border:240 5.9% 90%;--input:240 5.9% 90%;--ring:240 5.9% 10%;--chart-1:173 58% 39%;--chart-2:12 76% 61%;--chart-3:197 37% 24%;--chart-4:43 74% 66%;--chart-5:27 87% 67%;--radius:0.5rem;}img[src="/placeholder.svg"],img[src="/placeholder-user.jpg"]{filter:sepia(.3) hue-rotate(-60deg) saturate(.5) opacity(0.8) }</style>
+<style>h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; --font-sans-serif: 'Inter'; }
+</style>
+<style>body { font-family: 'Inter', sans-serif; --font-sans-serif: 'Inter'; }
+</style>
+<div class="flex min-h-screen w-full flex-col bg-muted/40">
+  <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+    <div class="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm sm:col-span-2" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6 pb-3">
+          <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Billing</h3>
+          <p class="text-sm text-muted-foreground max-w-lg text-balance leading-relaxed">
+            Easily manage your medical billing and payments.
+          </p>
+        </div>
+        <div class="p-6">
+          <form class="grid gap-4">
+            <div class="grid gap-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="patient-id"
+              >
+                Patient ID
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="patient-id"
+                placeholder="Enter patient ID"
+              />
+            </div>
+            <div class="grid gap-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="date"
+              >
+                Date
+              </label>
+            </div>
+            <div class="grid gap-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="visit-type"
+              >
+                Type of Visit or Service
+              </label>
+              <button
+                type="button"
+                role="combobox"
+                aria-controls="radix-:r8f:"
+                aria-expanded="false"
+                aria-autocomplete="none"
+                dir="ltr"
+                data-state="closed"
+                data-placeholder=""
+                class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="visit-type"
+              >
+                <span style="pointer-events: none;">Select type</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-chevron-down h-4 w-4 opacity-50"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+              <select
+                aria-hidden="true"
+                tabindex="-1"
+                style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; overflow-wrap: normal;"
+              >
+                <option value=""></option>
+                <option value="labs">Labs</option>
+                <option value="imaging">Imaging Study</option>
+                <option value="infusion">Infusion</option>
+                <option value="referral">Referral</option>
+                <option value="virtual">Virtual</option>
+                <option value="inperson">In-Person</option>
+                <option value="consultation">Consultation</option>
+                <option value="surgery">Surgery</option>
+                <option value="therapy">Therapy</option>
+              </select>
+            </div>
+            <div class="grid gap-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="diagnosis"
+              >
+                Diagnosis
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="diagnosis"
+                placeholder="Enter diagnosis"
+              />
+              <div class="text-xs text-muted-foreground">
+                ICD-10 code: <span id="icd10-code">A00.0</span>
+              </div>
+            </div>
+            <div class="grid gap-2">
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="amount"
+              >
+                Amount
+              </label>
+              <div class="flex items-center gap-2">
+                <input
+                  class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  id="amount"
+                  placeholder="Enter amount"
+                  type="number"
+                />
+                <button
+                  type="button"
+                  role="combobox"
+                  aria-controls="radix-:r8p:"
+                  aria-expanded="false"
+                  aria-autocomplete="none"
+                  dir="ltr"
+                  data-state="closed"
+                  data-placeholder=""
+                  class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  id="payment-type"
+                >
+                  <span style="pointer-events: none;">Select payment type</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down h-4 w-4 opacity-50"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+                <select
+                  aria-hidden="true"
+                  tabindex="-1"
+                  style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; overflow-wrap: normal;"
+                >
+                  <option value=""></option>
+                  <option value="usd">USD</option>
+                  <option value="btc">BTC</option>
+                  <option value="eth">ETH</option>
+                  <option value="usdc">USDC</option>
+                  <option value="doge">Dogecoin</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="flex items-center p-6">
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+            Submit Bill
+          </button>
+        </div>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6 pb-2">
+          <p class="text-sm text-muted-foreground">This Week</p>
+          <h3 class="whitespace-nowrap font-semibold tracking-tight text-4xl">$12,329</h3>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-muted-foreground">+25% from last week</div>
+        </div>
+        <div class="flex items-center p-6">
+          <div
+            aria-valuemax="100"
+            aria-valuemin="0"
+            role="progressbar"
+            data-state="indeterminate"
+            data-max="100"
+            class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20"
+            aria-label="25% increase"
+          >
+            <div
+              data-state="indeterminate"
+              data-max="100"
+              class="h-full w-full flex-1 bg-primary transition-all"
+              style="transform: translateX(-75%);"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6 pb-2">
+          <p class="text-sm text-muted-foreground">This Month</p>
+          <h3 class="whitespace-nowrap font-semibold tracking-tight text-4xl">$45,329</h3>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-muted-foreground">+10% from last month</div>
+        </div>
+        <div class="flex items-center p-6"></div>
+      </div>
+    </div>
+  </main>
+</div>
+

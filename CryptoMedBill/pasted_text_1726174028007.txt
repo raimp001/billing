@@ -1,0 +1,79 @@
+import { useState } from 'react';
+import { ethers } from 'ethers';
+import contractABI from './MedicalBillingABI.json';
+
+const contractAddress = 'YOUR_DEPLOYED_CONTRACT_ADDRESS'; // Replace with deployed contract address
+
+export default function Billing() {
+  const [patientId, setPatientId] = useState('');
+  const [date, setDate] = useState('');
+  const [visitType, setVisitType] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [amount, setAmount] = useState('');
+  const [paymentToken, setPaymentToken] = useState('');
+
+  const submitBill = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+      try {
+        const tx = await contract.submitBill(patientId, date, visitType, diagnosis, ethers.utils.parseUnits(amount, 18), paymentToken);
+        await tx.wait();
+        alert('Bill submitted!');
+      } catch (error) {
+        console.error('Error submitting bill:', error);
+      }
+    } else {
+      alert('Ethereum wallet not found');
+    }
+  };
+
+  const payBill = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+      try {
+        const tx = await contract.payBill(patientId, { value: ethers.utils.parseEther(amount) });
+        await tx.wait();
+        alert('Bill paid!');
+      } catch (error) {
+        console.error('Error paying bill:', error);
+      }
+    } else {
+      alert('Ethereum wallet not found');
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <main className="grid flex-1 items-start gap-4 p-4">
+        <div className="grid auto-rows-max items-start gap-4">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl mb-4">Billing</h2>
+            <form className="grid gap-4">
+              <div>
+                <label htmlFor="patient-id">Patient ID</label>
+                <input id="patient-id" placeholder="Enter patient ID" onChange={(e) => setPatientId(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="date">Date</label>
+                <input id="date" type="date" onChange={(e) => setDate(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="visit-type">Type of Visit or Service</label>
+                <input id="visit-type" placeholder="Enter visit type" onChange={(e) => setVisitType(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="diagnosis">Diagnosis</label>
+                <input id="diagnosis" placeholder="Enter diagnosis" onChange={(e) => setDiagnosis(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="amount">Amount</label>
+                <input id="amount" type="number" placeholder="Enter amount" onChange={(e) => setAmount(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="payment-token">Payment Token
